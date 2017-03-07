@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('accounts/{account}/balance', ['uses' => 'AccountController@balance', 'as' => 'accounts.balance']);
+Route::post('accounts/{account}/deposit', ['uses' => 'AccountController@deposit', 'as' => 'accounts.deposit']);
+Route::post('accounts/{account}/withdraw', ['uses' => 'AccountController@withdraw', 'as' => 'accounts.withdraw']);
+Route::resource('accounts', 'AccountController', [
+    'only' => ['store']
+]);

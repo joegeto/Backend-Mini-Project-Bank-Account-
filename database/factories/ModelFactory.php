@@ -22,3 +22,21 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(\App\Models\Account::class, function (\Faker\Generator $faker){
+    return [
+        'name' => $faker->name,
+        'number' => $faker->bankAccountNumber,
+        // 'balance' => $faker->randomFloat()
+    ];
+});
+
+$factory->define(\App\Models\Transaction::class, function (\Faker\Generator $faker){
+    return [
+        'amount' => $faker->randomFloat(),
+        'type' => array_get([
+            \App\Contracts\TransactionContract::TRANSACTION_DEPOSIT,
+            \App\Contracts\TransactionContract::TRANSACTION_WITHDRAWAL
+        ], rand(0,1))
+    ];
+});

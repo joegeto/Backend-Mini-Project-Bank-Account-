@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Tinker\TinkerServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if ($this->app->environment('local')){
+            $this->app->register(IdeHelperServiceProvider::class);
+            $this->app->register(TinkerServiceProvider::class);
+        }
     }
 
     /**
